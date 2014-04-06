@@ -72,7 +72,6 @@ Tabs = (->
 
       $(".b-tabs-titles").on "deactivate", ".b-tabs-titles__item", ->
         tabId = $(this).removeClass('active').data('tab')
-        console.log 'deactivate '+tabId
         $('.b-tabs-boxes__item[data-tab="'+tabId+'"]').removeClass('active')
         $(document).triggerHandler
           'type': 'stop_timer'
@@ -80,7 +79,6 @@ Tabs = (->
 
       $(".b-tabs-titles").on "activate", ".b-tabs-titles__item", ->
         tabId = $(this).addClass('active').data('tab')
-        console.log 'activate '+tabId
         $('.b-tabs-boxes__item[data-tab="'+tabId+'"]').addClass('active')
         $(document).triggerHandler
           'type': 'start_timer'
