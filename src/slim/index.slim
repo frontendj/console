@@ -1,0 +1,54 @@
+doctype html
+html
+  head
+    title Консоль
+    meta charset="utf-8"
+    link rel="stylesheet" href="build/css/core.css"
+    script src="build/js/jquery.custom.js"
+    script src="build/js/timers.js"
+    script src="build/js/app.js"
+    script src="build/js/tabs.js"
+
+    /script src="build/js/console.js"
+  body
+
+    .b-tabs-titles#b-tabs-titles
+      .b-tabs-titles__item.active data-tab="tab1"
+        span.inner Список иконок
+      .b-tabs-titles__item data-tab="tab2"
+        span.inner Текст
+      .b-tabs-titles__item data-tab="tab3"
+        span.inner Контрол рейтинга
+    .b-tabs-boxes#b-tabs-boxes
+      .b-tabs-boxes__item.active data-tab="tab1"
+        p Многие кометы имеют два хвоста, однако гелиоцентрическое расстояние представляет собой астероидный маятник Фуко – у таких объектов рукава столь фрагментарны и обрывочны, что их уже нельзя назвать спиральными.
+      .b-tabs-boxes__item data-tab="tab2"
+        p Метеорный дождь, как бы это ни казалось парадоксальным, вызывает pадиотелескоп Максвелла, учитывая, что в одном парсеке 3,26 световых года.
+      .b-tabs-boxes__item data-tab="tab3"
+        p Рефракция, в первом приближении, последовательно меняет космический дип-скай объект, данное соглашение было заключено на 2-й международной конференции "Земля из космоса - наиболее эффективные решения".
+
+    .b-console.disabled#console
+
+      .b-console__loader Консоль загружается...
+
+      .b-console__header#console-header
+        span.b-console-icon.unfold +
+        span.b-console-icon.fold -
+        span.b-console-icon.close &times;
+        .b-console__header__title Консоль
+
+      .b-console__log#console-log
+
+      form.b-console__form#console-form
+        input.b-console__form__fld#console-input autocomplete="off"
+        button.b-console__form__btn OK
+
+      .b-console__examples
+        p selectTab(2) - Выбран таб №2 "контрол рейтинга".
+
+        p selectTab(100) - Не удалось выбрать таб №100. Доступны табы с 0 по 3.
+
+        p swapTabs(0, 2) - Поменяли табы №0 "список иконок" и №2 "контрол рейтинга" местами.
+
+        p showStat()
+

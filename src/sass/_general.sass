@@ -1,0 +1,178 @@
+*
+  +box-sizing(border-box)
+
+body
+  padding: 50px
+
+body, html
+  background: #F5F5F5
+  min-width: 600px
+  font-family: Arial, Helvetica, sans-serif
+  font-size:  14px
+  line-height: 1
+
+p
+  margin-top: 15px
+
+.b-tabs-titles
+  font-size: 0
+
+.b-tabs-titles__item
+  display: inline-block
+  padding: 0 10px
+  height: 31px
+  line-height: 30px
+  font-size: 14px
+  margin-right: -1px
+  position: relative
+  cursor: pointer
+  z-index: 5
+  margin-left: 0px
+  border-bottom: 1px solid gray
+  .inner
+    border-top: 1px solid gray
+    display: block
+    background: lightblue
+    margin: 0 -5px
+    padding: 0 5px
+    position: relative
+    z-index: 20
+  &:first-child
+    margin-left: 8px
+  &.active
+    z-index: 10
+    cursor: default
+    border-bottom-color: transparent
+    &:before, &:after
+      background: white
+      z-index: 15
+    .inner
+      background: white
+      z-index: 30
+  &:before, &:after
+    content: ''
+    position: absolute
+    top: 0
+    width: 10px
+    bottom: 0
+    z-index: 1
+    background: lightblue
+    border-top: 1px solid gray
+    height: 30px
+
+  &:after
+    +transform(skew(15deg))
+    right: 0
+    border-right: 1px solid gray
+  &:before
+    +transform(skew(-15deg))
+    left: 0
+    border-left: 1px solid gray
+
+
+
+
+
+.b-tabs-boxes
+  border: 1px solid gray
+  width: 600px
+  margin-top: -1px
+  z-index: 7
+  position: relative
+
+.b-tabs-boxes__item
+  display: none
+  padding: 10px
+
+  &.active
+    display: block
+    background: white
+
+.b-console
+  width: 600px
+  margin: 20px 0
+
+.b-console__loader
+  display: none
+
+.b-console__header
+
+  +border-radius(4px 4px 0 0)
+  background: lightgray
+  border: 1px solid gray
+  border-bottom: 0
+  position: relative
+  height: 30px
+  line-height: 30px
+  padding: 0 5px
+
+
+.b-console__header__title
+  font-size: 12px
+  text-align: center
+  width: 100px
+  left: 50%
+  margin-left: -50px
+  height: 30px
+  top: 0
+  position: absolute
+
+.b-console__log
+  max-height: 300px
+  min-height: 50px
+  overflow-y: scroll
+  background: white
+  font-size: 14px
+  border: 1px solid gray
+  border-bottom: 0
+
+.b-console__form
+  height: 30px
+
+.b-console__form__fld
+  width: 550px
+  float: left
+  height: 30px
+  border: 1px solid gray
+  border-width: 1px 0 1px 1px
+  padding: 0 10px
+  outline: 0
+
+.b-console__form__btn
+  width: 50px
+  height: 30px
+  border: 1px solid gray
+  outline: 0
+  cursor: pointer
+
+.b-console-icon
+  display: inline-block
+  width: 16px
+  height: 16px
+  +border-radius(8px)
+  background: black
+  color: white
+  margin-right: 5px
+  line-height: 16px
+  text-align: center
+  cursor: pointer
+  &:hover
+    background: gray
+  &.unfold
+    display: none
+
+
+.b-console.folded
+  .b-console__log
+    display: none
+  .b-console-icon.fold
+    display: none
+  .b-console-icon.unfold
+    display: inline-block
+
+.b-console.disabled
+  .b-console__loader
+    display: block
+  .b-console__header, .b-console__log, .b-console__form, .b-console__examples
+    display: none
+
