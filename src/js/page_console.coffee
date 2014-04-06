@@ -16,7 +16,7 @@ PageConsole = (->
         message += ('<br>' + index + ' ' + tabName + ': ' + _private.secondsDecline(seconds))
 
       # Здесь и в дальнейшем вместо вызовы события логирования вызываем функцию логирования напрямую для удобства
-      #$(document).triggerHandler
+      #$('#console').triggerHandler
       # 'type': 'log_message'
       # 'logMessage': message
       _private.printMessage(message)
@@ -25,12 +25,12 @@ PageConsole = (->
 
   _private =
 
-    renderConsole: ->
+    showConsole: ->
       $('#console').removeClass 'disabled'
 
     listenEvents: ->
 
-      $(document).on "log_message", (e) =>
+      $('#console').on "log_message", (e) =>
         @printMessage(e.logMessage)
 
       $(document).on "function_call", (e) ->
@@ -46,7 +46,7 @@ PageConsole = (->
       return
 
     stopListen: ->
-      $(document).off "log_message"
+      $('#console').off "log_message"
 
     printMessage: (message) ->
       $('#console-log').append(message+'<br>')
@@ -190,7 +190,7 @@ PageConsole = (->
     console.log 'init module PageConsole'
 
     _private.initStorage()
-    _private.renderConsole()
+    _private.showConsole()
     _private.listenEvents()
     _private.catchUserActivity()
 

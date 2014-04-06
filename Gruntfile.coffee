@@ -28,9 +28,6 @@ module.exports = (grunt) ->
       dist:
         files:
           'index.html': 'src/slim/index.slim'
-      dev:
-        files:
-          'index.html': 'src/slim/index.slim'
 
     compass:
       dist:

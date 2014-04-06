@@ -8,7 +8,7 @@ window.App =
       'type': 'start_timer'
       'timerId': 'page'
 
-    # консоль можно подключить попозже
+    # консоль можно подключить попозже раз уж сделали все в виде модулей
     setTimeout (=>
       console.log 'Добавляем модуль PageConsole'
       @createScript('page-console', 'build/js/page_console.js', true)

@@ -4,7 +4,7 @@ Tabs = (->
   _forConsole =
 
     selectTab: (tabIndex, noLogging = false) ->
-      if tabIndex != undefined && tabIndex >= 0
+      if /^\d+$/.test(tabIndex)
         tabTitleItem = $(".b-tabs-titles__item")[tabIndex]
         if tabTitleItem
           tabId = $(tabTitleItem).data('tab')
@@ -17,7 +17,7 @@ Tabs = (->
         message = 'Не удалось выбрать таб ' + tabIndex
 
       if message && !noLogging
-        $(document).triggerHandler
+        $('#console').triggerHandler
           'type': 'log_message'
           'logMessage': message
 
@@ -25,9 +25,9 @@ Tabs = (->
 
     swapTabs: (firstTabIndex, secondTabIndex) ->
 
-      message = 'Не удалось поменять табы'
+      message = 'Не удалось поменять табы. Неверный синтаксис'
 
-      if firstTabIndex != undefined && secondTabIndex != undefined
+      if /^\d+$/.test(firstTabIndex) && /^\d+$/.test(secondTabIndex)
         firstTabTitleItem = $('.b-tabs-titles__item:nth-child('+(1+parseInt(firstTabIndex))+')')
         secondTabTitleItem = $('.b-tabs-titles__item:nth-child('+(1+parseInt(secondTabIndex))+')')
 
@@ -46,7 +46,7 @@ Tabs = (->
           message = 'Не удалось поменять табы №'+firstTabIndex+' и №'+secondTabIndex+'. Доступны табы с 0 по '+ ($(".b-tabs-titles__item").length-1)
 
       if message
-        $(document).triggerHandler
+        $('#console').triggerHandler
           'type': 'log_message'
           'logMessage': message
 
@@ -92,7 +92,7 @@ Tabs = (->
             message = 'Функция ' + functionName + ' не найдена'
 
         if message
-          $(document).triggerHandler
+          $('#console').triggerHandler
             'type': 'log_message'
             'logMessage': message
 
@@ -105,10 +105,6 @@ Tabs = (->
     _private.listenEvents()
     _private.catchUserActivity()
     _forConsole.selectTab(0, true)
-
-
-
-
 
     return
 )()
