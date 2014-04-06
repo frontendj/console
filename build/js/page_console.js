@@ -20,11 +20,11 @@
       }
     };
     _private = {
-      renderConsole: function() {
+      showConsole: function() {
         return $('#console').removeClass('disabled');
       },
       listenEvents: function() {
-        $(document).on("log_message", (function(_this) {
+        $('#console').on("log_message", (function(_this) {
           return function(e) {
             return _this.printMessage(e.logMessage);
           };
@@ -44,7 +44,7 @@
         });
       },
       stopListen: function() {
-        return $(document).off("log_message");
+        return $('#console').off("log_message");
       },
       printMessage: function(message) {
         $('#console-log').append(message + '<br>');
@@ -205,7 +205,7 @@
       init: function() {
         console.log('init module PageConsole');
         _private.initStorage();
-        _private.renderConsole();
+        _private.showConsole();
         _private.listenEvents();
         _private.catchUserActivity();
       }

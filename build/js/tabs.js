@@ -9,7 +9,7 @@
         if (noLogging == null) {
           noLogging = false;
         }
-        if (tabIndex !== void 0 && tabIndex >= 0) {
+        if (/^\d+$/.test(tabIndex)) {
           tabTitleItem = $(".b-tabs-titles__item")[tabIndex];
           if (tabTitleItem) {
             tabId = $(tabTitleItem).data('tab');
@@ -23,7 +23,7 @@
           message = 'Не удалось выбрать таб ' + tabIndex;
         }
         if (message && !noLogging) {
-          $(document).triggerHandler({
+          $('#console').triggerHandler({
             'type': 'log_message',
             'logMessage': message
           });
@@ -31,8 +31,8 @@
       },
       swapTabs: function(firstTabIndex, secondTabIndex) {
         var firstTabName, firstTabTitleItem, message, secondTabName, secondTabTitleItem, temp;
-        message = 'Не удалось поменять табы';
-        if (firstTabIndex !== void 0 && secondTabIndex !== void 0) {
+        message = 'Не удалось поменять табы. Неверный синтаксис';
+        if (/^\d+$/.test(firstTabIndex) && /^\d+$/.test(secondTabIndex)) {
           firstTabTitleItem = $('.b-tabs-titles__item:nth-child(' + (1 + parseInt(firstTabIndex)) + ')');
           secondTabTitleItem = $('.b-tabs-titles__item:nth-child(' + (1 + parseInt(secondTabIndex)) + ')');
           if (firstTabTitleItem.length && secondTabTitleItem.length) {
@@ -47,7 +47,7 @@
           }
         }
         if (message) {
-          $(document).triggerHandler({
+          $('#console').triggerHandler({
             'type': 'log_message',
             'logMessage': message
           });
@@ -97,7 +97,7 @@
             }
           }
           if (message) {
-            return $(document).triggerHandler({
+            return $('#console').triggerHandler({
               'type': 'log_message',
               'logMessage': message
             });
