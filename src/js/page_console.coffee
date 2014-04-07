@@ -49,7 +49,7 @@ PageConsole = (->
       $('#console').off "log_message"
 
     printMessage: (message) ->
-      $('#console-log').append(message+'<br>')
+      $('#console-log').append('<div class="item">'+message+'</div>')
       $('#console-log').scrollTop $('#console-log')[0].scrollHeight
       return
 
@@ -78,6 +78,7 @@ PageConsole = (->
 
         if consoleVal.length >= 1
           @logCommand(consoleVal)
+          consoleVal = @makeDirty(consoleVal)
           @processCommand(consoleVal)
         else
           @printMessage('/>')
@@ -136,7 +137,7 @@ PageConsole = (->
 
     processCommand: (command) ->
 
-      @printMessage('/>'+command)
+      @printMessage('/> '+command)
 
       $('#console-input').val('')
       re = /^(selectTab|swapTabs|showStat)\(([^)]*)\)$/i
@@ -162,7 +163,6 @@ PageConsole = (->
       if message
         @printMessage(message)
 
-
       return
 
     historyJump: (direction) ->
@@ -184,6 +184,10 @@ PageConsole = (->
         @commandIndex = nextIndex
 
       return
+
+    makeDirty: (string) ->
+      string = string.replace(/</g, '&lt;').replace(/>/g, '&gt;')
+      string
 
   init: ->
 
