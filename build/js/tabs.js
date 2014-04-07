@@ -87,14 +87,12 @@
             'timerId': tabId
           });
         });
-        $(document).on("function_call", function(e) {
+        $(document).on("function_call.Tabs", function(e) {
           var message;
-          if (e.targetModule === 'Tabs') {
-            if (_forConsole[e.functionName]) {
-              _forConsole[e.functionName].apply(this, e.functionArguments);
-            } else {
-              message = 'Функция ' + functionName + ' не найдена';
-            }
+          if (_forConsole[e.functionName]) {
+            _forConsole[e.functionName].apply(this, e.functionArguments);
+          } else {
+            message = 'Функция ' + functionName + ' не найдена';
           }
           if (message) {
             return $('#console').triggerHandler({

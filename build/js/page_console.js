@@ -27,14 +27,12 @@
             return _this.printMessage(e.logMessage);
           };
         })(this));
-        $(document).on("function_call", function(e) {
+        $(document).on("function_call.PageConsole", function(e) {
           var message;
-          if (e.targetModule === 'PageConsole') {
-            if (_forConsole[e.functionName]) {
-              _forConsole[e.functionName].apply(this, e.functionArguments);
-            } else {
-              message = 'Функция ' + functionName + ' не найдена';
-            }
+          if (_forConsole[e.functionName]) {
+            _forConsole[e.functionName].apply(this, e.functionArguments);
+          } else {
+            message = 'Функция ' + functionName + ' не найдена';
           }
           if (message) {
             return this.printMessage(message);
@@ -43,7 +41,8 @@
       },
       stopListen: function() {
         $('#console').off("log_message");
-        return $('#console-form').off('submit.console');
+        $('#console-form').off('submit.console');
+        return $(document).off("function_call.PageConsole");
       },
       printMessage: function(message) {
         $('#console-log').append('<div class="item">' + message + '</div>');
@@ -167,7 +166,7 @@
           }
           if (module) {
             $(document).triggerHandler({
-              'type': 'function_call',
+              'type': 'function_call.' + module,
               'targetModule': module,
               'functionName': found[1],
               'functionArguments': this.parseArguments(found[2])
