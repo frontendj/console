@@ -47,7 +47,7 @@
         return $('#console').off("log_message");
       },
       printMessage: function(message) {
-        $('#console-log').append(message + '<br>');
+        $('#console-log').append('<div class="item">' + message + '</div>');
         $('#console-log').scrollTop($('#console-log')[0].scrollHeight);
       },
       secondsDecline: function(value) {
@@ -82,6 +82,7 @@
             e.preventDefault();
             if (consoleVal.length >= 1) {
               _this.logCommand(consoleVal);
+              consoleVal = _this.makeDirty(consoleVal);
               return _this.processCommand(consoleVal);
             } else {
               return _this.printMessage('/>');
@@ -152,7 +153,7 @@
       },
       processCommand: function(command) {
         var found, message, module, re;
-        this.printMessage('/>' + command);
+        this.printMessage('/> ' + command);
         $('#console-input').val('');
         re = /^(selectTab|swapTabs|showStat)\(([^)]*)\)$/i;
         found = command.match(re);
@@ -199,6 +200,10 @@
           }
           this.commandIndex = nextIndex;
         }
+      },
+      makeDirty: function(string) {
+        string = string.replace(/</g, '&lt;').replace(/>/g, '&gt;');
+        return string;
       }
     };
     return {
