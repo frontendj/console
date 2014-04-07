@@ -84,12 +84,11 @@ Tabs = (->
           'type': 'start_timer'
           'timerId': tabId
 
-      $(document).on "function_call", (e) ->
-        if e.targetModule == 'Tabs'
-          if _forConsole[e.functionName]
-            _forConsole[e.functionName].apply(@, e.functionArguments)
-          else
-            message = 'Функция ' + functionName + ' не найдена'
+      $(document).on "function_call.Tabs", (e) ->
+        if _forConsole[e.functionName]
+          _forConsole[e.functionName].apply(@, e.functionArguments)
+        else
+          message = 'Функция ' + functionName + ' не найдена'
 
         if message
           $('#console').triggerHandler

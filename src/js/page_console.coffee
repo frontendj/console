@@ -33,12 +33,11 @@ window.PageConsole = (->
       $('#console').on "log_message", (e) =>
         @printMessage(e.logMessage)
 
-      $(document).on "function_call", (e) ->
-        if e.targetModule == 'PageConsole'
-          if _forConsole[e.functionName]
-            _forConsole[e.functionName].apply(@, e.functionArguments)
-          else
-            message = 'Функция ' + functionName + ' не найдена'
+      $(document).on "function_call.PageConsole", (e) ->
+        if _forConsole[e.functionName]
+          _forConsole[e.functionName].apply(@, e.functionArguments)
+        else
+          message = 'Функция ' + functionName + ' не найдена'
 
         if message
           @printMessage(message)
@@ -48,6 +47,7 @@ window.PageConsole = (->
     stopListen: ->
       $('#console').off "log_message"
       $('#console-form').off 'submit.console'
+      $(document).off "function_call.PageConsole"
 
     printMessage: (message) ->
       $('#console-log').append('<div class="item">'+message+'</div>')
@@ -153,7 +153,7 @@ window.PageConsole = (->
 
         if module
           $(document).triggerHandler
-            'type': 'function_call'
+            'type': 'function_call.'+module
             'targetModule': module
             'functionName': found[1]
             'functionArguments': @parseArguments(found[2])
