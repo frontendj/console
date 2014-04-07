@@ -1,4 +1,4 @@
-PageConsole = (->
+window.PageConsole = (->
 
   # Эти функции разрешим выполнять через консоль
   _forConsole =
@@ -26,7 +26,7 @@ PageConsole = (->
   _private =
 
     showConsole: ->
-      $('#console').removeClass 'disabled'
+      $('#console').removeClass('disabled').find('.b-console__loader').hide()
 
     listenEvents: ->
 
@@ -47,6 +47,7 @@ PageConsole = (->
 
     stopListen: ->
       $('#console').off "log_message"
+      $('#console-form').off 'submit.console'
 
     printMessage: (message) ->
       $('#console-log').append('<div class="item">'+message+'</div>')
@@ -72,7 +73,7 @@ PageConsole = (->
 
     catchUserActivity: ->
 
-      $('#console-form').on 'submit', (e) =>
+      $('#console-form').on 'submit.console', (e) =>
         consoleVal = $('#console-input').val().trim()
         e.preventDefault()
 
@@ -100,7 +101,7 @@ PageConsole = (->
         if $(e.target).hasClass 'fold'
           $('#console').addClass 'folded'
         if $(e.target).hasClass 'close'
-          $('#console').remove()
+          $('#console').addClass 'disabled'
           @stopListen()
 
       return
@@ -193,6 +194,8 @@ PageConsole = (->
 
     console.log 'init module PageConsole'
 
+    _private.stopListen()
+
     _private.initStorage()
     _private.showConsole()
     _private.listenEvents()
@@ -202,7 +205,7 @@ PageConsole = (->
 
 )()
 
-$ -> PageConsole.init()
+$ -> window.PageConsole.init()
 
 
 

@@ -1,7 +1,5 @@
 (function() {
-  var PageConsole;
-
-  PageConsole = (function() {
+  window.PageConsole = (function() {
     var _forConsole, _private;
     _forConsole = {
       showStat: function() {
@@ -21,7 +19,7 @@
     };
     _private = {
       showConsole: function() {
-        return $('#console').removeClass('disabled');
+        return $('#console').removeClass('disabled').find('.b-console__loader').hide();
       },
       listenEvents: function() {
         $('#console').on("log_message", (function(_this) {
@@ -44,7 +42,8 @@
         });
       },
       stopListen: function() {
-        return $('#console').off("log_message");
+        $('#console').off("log_message");
+        return $('#console-form').off('submit.console');
       },
       printMessage: function(message) {
         $('#console-log').append('<div class="item">' + message + '</div>');
@@ -75,7 +74,7 @@
         return result + ' ' + ending;
       },
       catchUserActivity: function() {
-        $('#console-form').on('submit', (function(_this) {
+        $('#console-form').on('submit.console', (function(_this) {
           return function(e) {
             var consoleVal;
             consoleVal = $('#console-input').val().trim();
@@ -113,7 +112,7 @@
               $('#console').addClass('folded');
             }
             if ($(e.target).hasClass('close')) {
-              $('#console').remove();
+              $('#console').addClass('disabled');
               return _this.stopListen();
             }
           };
@@ -209,6 +208,7 @@
     return {
       init: function() {
         console.log('init module PageConsole');
+        _private.stopListen();
         _private.initStorage();
         _private.showConsole();
         _private.listenEvents();
@@ -218,7 +218,7 @@
   })();
 
   $(function() {
-    return PageConsole.init();
+    return window.PageConsole.init();
   });
 
 }).call(this);
